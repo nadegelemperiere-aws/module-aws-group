@@ -31,11 +31,13 @@ module "group" {
             description = "AllowS3Listing"
             actions     = ["s3:ListAllMyBuckets"]
             resources   = ["*"]
+			condition   = "{ \"StringEquals\" : { \"aws:RequestedRegion\" : [ \"${var.region}\" ] } }"
         },
 		{
             description = "AllowS3Reading"
             actions     = ["s3:GetObject"]
             resources   = ["*"]
+			condition   = "{ \"StringEquals\" : { \"aws:RequestedRegion\" : [ \"${var.region}\" ] } }"
         }
     ]
 }

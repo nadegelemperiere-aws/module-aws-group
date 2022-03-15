@@ -61,6 +61,7 @@ locals {
 			Effect 		= "Allow"
 			Action 		= right.actions
 			Resource 	= right.resources
+			Condition	= jsondecode(right.condition)
 		}
 	]
 }

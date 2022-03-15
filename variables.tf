@@ -70,6 +70,7 @@ variable "rights" {
 		description = string,
 		actions 	= list(string)
 		resources 	= list(string)
+		condition   = string
 	}))
 	default = []
 }
