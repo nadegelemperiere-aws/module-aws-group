@@ -54,16 +54,25 @@ resource "aws_ssoadmin_account_assignment" "permission_set_assignment" {
 # Set permission policy for user
 # -------------------------------------------------------
 locals {
-	statements = [
+	statements = concat([
 		for i,right in var.rights :
 		{
 			Sid 		= right.description
 			Effect 		= "Allow"
 			Action 		= right.actions
 			Resource 	= right.resources
-			Condition	= jsondecode(right.condition)
-		}
-	]
+			Condition   = jsondecode(right.condition)
+		} if right.condition != null
+	],
+	[
+		for i,right in var.rights :
+		{
+			Sid 		= right.description
+			Effect 		= "Allow"
+			Action 		= right.actions
+			Resource 	= right.resources
+		} if right.condition == null
+	])
 }
 resource "aws_ssoadmin_permission_set_inline_policy" "rights" {
 	count 			= length(local.statements) != 0 ? 1 : 0
