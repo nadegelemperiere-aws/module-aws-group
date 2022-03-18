@@ -194,7 +194,7 @@ This code is under MIT License.
 Contact
 =======
 
-Nadege LEMPERIERE - nadege.lemperiere@technogix.io
+Technogix - contact.technogix@gmail.com
 
 Project Link: `https://github.com/technogix-terraform/module-aws-permission-set`_
 

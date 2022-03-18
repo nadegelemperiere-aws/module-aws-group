@@ -11,6 +11,11 @@
 # Latest revision: 14 november 2021
 # -------------------------------------------------------
 
+terraform {
+	experiments = [ module_variable_optional_attrs ]
+}
+
+
 # -------------------------------------------------------
 # Contact e-mail for this deployment
 # -------------------------------------------------------
@@ -70,7 +75,7 @@ variable "rights" {
 		description = string,
 		actions 	= list(string)
 		resources 	= list(string)
-		condition   = string
+		condition   = optional(string)
 	}))
 	default = []
 }
