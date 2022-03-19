@@ -5,7 +5,7 @@
 # Copyright (c) [2022] Technogix SARL
 # All rights reserved
 # -------------------------------------------------------
-# Module to deploy an aws bucket with all the secure
+# Module to deploy an aws permission set with all the secure
 # components required
 # Bash script to tests in a container
 # -------------------------------------------------------

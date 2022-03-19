@@ -15,7 +15,6 @@ terraform {
 	experiments = [ module_variable_optional_attrs ]
 }
 
-
 # -------------------------------------------------------
 # Contact e-mail for this deployment
 # -------------------------------------------------------
@@ -86,14 +85,6 @@ variable "rights" {
 # Initial set of managed policies to give to user
 # --------------------------------------------------------
 variable "managed" {
-	type = list(string)
-	default = []
-}
-
-# --------------------------------------------------------
-# Initial set of self managed policies to give to user
-# --------------------------------------------------------
-variable "unmanaged" {
 	type = list(string)
 	default = []
 }

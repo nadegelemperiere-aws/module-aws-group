@@ -5,8 +5,7 @@
 # Copyright (c) [2022] Technogix SARL
 # All rights reserved
 # -------------------------------------------------------
-# Module to deploy an aws bucket with all the secure
-# components required
+# Module to deploy an aws permission set
 # Bash script to launch robotframework tests
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @13 january 2022
