@@ -66,12 +66,13 @@ To use this module in a wider terraform deployment, add the module to a terrafor
         rights      = [
             {
                 description = description to give to the statement
-                actions     = [ list of actions to allow the group users to do in AWS console
-                    "s3:ListAllMyBuckets"
+                actions     = [ list of actions to allow the group users to do in AWS console, with a boolean to state if action is in fact a NotAction
+                    { value = "s3:ListAllMyBuckets", not = false }
                 ]
                 resources   = [ list of resources to which permission applies
                     "*"
                 ]
+                condition = ""
             }
         ]
         managed       = [ list of managed policies to give to user

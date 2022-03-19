@@ -58,20 +58,39 @@ locals {
 		for i,right in var.rights :
 		{
 			Sid 		= right.description
-			Effect 		= "Allow"
+			Effect 		= right.effect
 			Action 		= right.actions
 			Resource 	= right.resources
 			Condition   = jsondecode(right.condition)
-		} if right.condition != null
+		} if right.condition != null && right.actions != null
 	],
 	[
 		for i,right in var.rights :
 		{
 			Sid 		= right.description
-			Effect 		= "Allow"
+			Effect 		= right.effect
 			Action 		= right.actions
 			Resource 	= right.resources
-		} if right.condition == null
+		} if right.condition == null && right.actions != null
+	],
+	[
+		for i,right in var.rights :
+		{
+			Sid 		= right.description
+			Effect 		= right.effect
+			NotAction 	= right.notactions
+			Resource 	= right.resources
+			Condition   = jsondecode(right.condition)
+		} if right.condition != null && right.notactions != null
+	],
+	[
+		for i,right in var.rights :
+		{
+			Sid 		= right.description
+			Effect 		= right.effect
+			NotAction 	= right.actions
+			Resource 	= right.resources
+		} if right.condition == null && right.notactions != null
 	])
 }
 resource "aws_ssoadmin_permission_set_inline_policy" "rights" {

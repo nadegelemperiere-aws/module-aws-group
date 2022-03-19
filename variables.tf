@@ -73,7 +73,9 @@ variable "group" {
 variable "rights" {
 	type = list(object({
 		description = string,
-		actions 	= list(string)
+		effect		= string,
+		actions 	= optional(list(string))
+		notactions 	= optional(list(string))
 		resources 	= list(string)
 		condition   = optional(string)
 	}))
@@ -81,10 +83,17 @@ variable "rights" {
 }
 
 # --------------------------------------------------------
-# Initial set of managed policies to give to user (can be
-# overloaded)
+# Initial set of managed policies to give to user
 # --------------------------------------------------------
 variable "managed" {
+	type = list(string)
+	default = []
+}
+
+# --------------------------------------------------------
+# Initial set of self managed policies to give to user
+# --------------------------------------------------------
+variable "unmanaged" {
 	type = list(string)
 	default = []
 }
