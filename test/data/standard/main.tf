@@ -30,12 +30,22 @@ module "group" {
         {
             description = "AllowS3Listing"
             actions     = ["s3:ListAllMyBuckets"]
+			effect		= "Allow"
             resources   = ["*"]
+			condition   = "{ \"StringEquals\" : { \"aws:RequestedRegion\" : [ \"${var.region}\" ] } }"
         },
 		{
             description = "AllowS3Reading"
+			effect		= "Allow"
             actions     = ["s3:GetObject"]
             resources   = ["*"]
+        },
+		{
+            description = "DenyOtherRegions"
+			effect		= "Deny"
+            notactions  = ["ec2:Describe*","kms:List*"]
+            resources   = ["*"]
+			condition   = "{ \"StringNotEquals\" : { \"aws:RequestedRegion\": [ \"eu-west-1\", \"us-east-1\" ] } }"
         }
     ]
 }

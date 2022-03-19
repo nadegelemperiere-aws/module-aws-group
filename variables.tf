@@ -11,6 +11,10 @@
 # Latest revision: 14 november 2021
 # -------------------------------------------------------
 
+terraform {
+	experiments = [ module_variable_optional_attrs ]
+}
+
 # -------------------------------------------------------
 # Contact e-mail for this deployment
 # -------------------------------------------------------
@@ -68,15 +72,17 @@ variable "group" {
 variable "rights" {
 	type = list(object({
 		description = string,
-		actions 	= list(string)
+		effect		= string,
+		actions 	= optional(list(string))
+		notactions 	= optional(list(string))
 		resources 	= list(string)
+		condition   = optional(string)
 	}))
 	default = []
 }
 
 # --------------------------------------------------------
-# Initial set of managed policies to give to user (can be
-# overloaded)
+# Initial set of managed policies to give to user
 # --------------------------------------------------------
 variable "managed" {
 	type = list(string)
