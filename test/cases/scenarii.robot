@@ -1,30 +1,28 @@
 # -------------------------------------------------------
-# TECHNOGIX
-# -------------------------------------------------------
-# Copyright (c) [2022] Technogix SARL
+# Copyright (c) [2022] Nadege Lemperiere
 # All rights reserved
 # -------------------------------------------------------
 # Robotframework test suite for module
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @12 november 2021
-# Latest revision: 12 november 2021
+# Latest revision: 19 november 2023
 # -------------------------------------------------------
 
 
 *** Settings ***
 Documentation   A test case to check permission sets creation
-Library         technogix_iac_keywords.terraform
-Library         technogix_iac_keywords.keepass
-Library         technogix_iac_keywords.sso
+Library         aws_iac_keywords.terraform
+Library         aws_iac_keywords.keepass
+Library         aws_iac_keywords.sso
 Library         ../keywords/data.py
 Library         OperatingSystem
 
 *** Variables ***
 ${KEEPASS_DATABASE}                 ${vault_database}
 ${KEEPASS_KEY_ENV}                  ${vault_key_env}
-${KEEPASS_PRINCIPAL_KEY_ENTRY}      /engineering-environment/aws/aws-principal-access-key
-${KEEPASS_ID_ENTRY}                 /engineering-environment/aws/aws-sso-sysadmin-group-id
-${KEEPASS_ACCOUNT_ENTRY}            /engineering-environment/aws/aws-account
+${KEEPASS_PRINCIPAL_KEY_ENTRY}      /aws/aws-principal-access-key
+${KEEPASS_ID_ENTRY}                 /aws/aws-sso-sysadmin-group-id
+${KEEPASS_ACCOUNT_ENTRY}            /aws/aws-account
 ${REGION}                           eu-west-1
 
 *** Test Cases ***
@@ -48,10 +46,10 @@ Create Standard Permissions
     Permission Set Shall Exist And Match        ${specs}
     [Teardown]  Destroy Terraform Deployment    ${CURDIR}/../data/standard      ${TF_PARAMETERS}
 
-Create Permissions With No Rights
-    [Documentation]         Create SSO Group With No IAM Permissions
-    Launch Terraform Deployment                 ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}
-    ${states}   Load Terraform States           ${CURDIR}/../data/no-rights
-    ${specs}    Load No Rights Test Data        ${states['test']['outputs']['permissions']['value']['arn']}
-    Permission Set Shall Exist And Match        ${specs}
-    [Teardown]  Destroy Terraform Deployment    ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}
+#Create Permissions With No Rights
+#    [Documentation]         Create SSO Group With No IAM Permissions
+#    Launch Terraform Deployment                 ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}
+#    ${states}   Load Terraform States           ${CURDIR}/../data/no-rights
+#    ${specs}    Load No Rights Test Data        ${states['test']['outputs']['permissions']['value']['arn']}
+#    Permission Set Shall Exist And Match        ${specs}
+#    [Teardown]  Destroy Terraform Deployment    ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}

@@ -1,14 +1,12 @@
 # -------------------------------------------------------
-# TECHNOGIX
-# -------------------------------------------------------
-# Copyright (c) [2022] Technogix SARL
+# Copyright (c) [2022] Nadege Lemperiere
 # All rights reserved
 # -------------------------------------------------------
 # Module to deploy the initial permissions associated to
 # an AWS SSO account
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @14 november 2021
-# Latest revision: 14 november 2021
+# Latest revision: 20 november 2023
 # -------------------------------------------------------
 
 data "aws_ssoadmin_instances" "topic_sso_instance" {}
@@ -38,6 +36,8 @@ resource "aws_ssoadmin_permission_set" "permission_set" {
 # Set permission policy to sso group
 # -------------------------------------------------------
 resource "aws_ssoadmin_account_assignment" "permission_set_assignment" {
+
+    depends_on = [aws_ssoadmin_permission_set.permission_set]
 
    	instance_arn        = aws_ssoadmin_permission_set.permission_set.instance_arn
     permission_set_arn  = aws_ssoadmin_permission_set.permission_set.arn
@@ -93,11 +93,16 @@ locals {
 		} if right.condition == null && right.notactions != null
 	])
 }
+
+# -------------------------------------------------------
+# Set inline policy
+# -------------------------------------------------------
 resource "aws_ssoadmin_permission_set_inline_policy" "rights" {
-	count 			= length(local.statements) != 0 ? 1 : 0
+
+    count 			= length(local.statements) != 0 ? 1 : 0
     inline_policy   = jsonencode({
         Version 	= "2012-10-17"
-        Statement 	= "${local.statements}"
+        Statement 	= local.statements
     })
     instance_arn       = aws_ssoadmin_permission_set.permission_set.instance_arn
     permission_set_arn = aws_ssoadmin_permission_set.permission_set.arn
