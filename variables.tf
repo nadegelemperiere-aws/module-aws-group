@@ -1,50 +1,49 @@
 # -------------------------------------------------------
-# TECHNOGIX
-# -------------------------------------------------------
-# Copyright (c) [2022] Technogix SARL
+# Copyright (c) [2022] Nadege Lemperiere
 # All rights reserved
 # -------------------------------------------------------
 # Module to deploy the initial permissions associated to
 # an AWS SSO account
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @14 november 2021
-# Latest revision: 14 november 2021
+# Latest revision: 19 november 2023
 # -------------------------------------------------------
-
-terraform {
-	experiments = [ module_variable_optional_attrs ]
-}
 
 # -------------------------------------------------------
 # Contact e-mail for this deployment
 # -------------------------------------------------------
 variable "email" {
-	type 	= string
+	type 	 = string
+	nullable = false
 }
 
 # -------------------------------------------------------
 # Environment for this deployment (prod, preprod, ...)
 # -------------------------------------------------------
 variable "environment" {
-	type 	= string
+	type 	 = string
+	nullable = false
 }
 
 # -------------------------------------------------------
 # Topic context for this deployment
 # -------------------------------------------------------
 variable "project" {
-	type    = string
+	type     = string
+	nullable = false
 }
 variable "module" {
-	type 	= string
+	type 	 = string
+	nullable = false
 }
 
 # -------------------------------------------------------
 # Solution version
 # -------------------------------------------------------
 variable "git_version" {
-	type    = string
-	default = "unmanaged"
+	type     = string
+	nullable = false
+	default  = "unmanaged"
 }
 
 # -------------------------------------------------------
@@ -52,6 +51,7 @@ variable "git_version" {
 # -------------------------------------------------------
 variable "account" {
 	type = string
+	nullable = false
 }
 
 # --------------------------------------------------------
@@ -78,13 +78,15 @@ variable "rights" {
 		resources 	= list(string)
 		condition   = optional(string)
 	}))
-	default = []
+	default  = []
+	nullable = false
 }
 
 # --------------------------------------------------------
 # Initial set of managed policies to give to user
 # --------------------------------------------------------
 variable "managed" {
-	type = list(string)
-	default = []
+	type     = list(string)
+	nullable = false
+	default  = []
 }
