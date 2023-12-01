@@ -46,10 +46,10 @@ Create Standard Permissions
     Permission Set Shall Exist And Match        ${specs}
     [Teardown]  Destroy Terraform Deployment    ${CURDIR}/../data/standard      ${TF_PARAMETERS}
 
-#Create Permissions With No Rights
-#    [Documentation]         Create SSO Group With No IAM Permissions
-#    Launch Terraform Deployment                 ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}
-#    ${states}   Load Terraform States           ${CURDIR}/../data/no-rights
-#    ${specs}    Load No Rights Test Data        ${states['test']['outputs']['permissions']['value']['arn']}
-#    Permission Set Shall Exist And Match        ${specs}
-#    [Teardown]  Destroy Terraform Deployment    ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}
+Create Permissions With No Rights
+    [Documentation]         Create SSO Group With No IAM Permissions
+    Launch Terraform Deployment                 ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}
+    ${states}   Load Terraform States           ${CURDIR}/../data/no-rights
+    ${specs}    Load No Rights Test Data        ${states['test']['outputs']['permissions']['value']['arn']}
+    Permission Set Shall Exist And Match        ${specs}
+    [Teardown]  Destroy Terraform Deployment    ${CURDIR}/../data/no-rights     ${TF_PARAMETERS}
