@@ -2,8 +2,7 @@
 # Copyright (c) [2022] Nadege Lemperiere
 # All rights reserved
 # -------------------------------------------------------
-# Module to deploy the initial permissions associated to
-# an AWS SSO account
+# Module to deploy an AWS SSO group
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @14 november 2021
 # Latest revision: 12 december 2023
