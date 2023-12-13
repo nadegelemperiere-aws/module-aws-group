@@ -28,7 +28,7 @@ def load_standard_test_data(arn) :
     result['groups'].append({})
     result['groups'][0]['name'] = 'standard'
     result['groups'][0]['data'] = {}
-    result['groups'][0]['data']['DisplayName'] = 'test'
+    result['groups'][0]['data']['DisplayName'] = 'test-test-test'
     result['groups'][0]['data']['Description'] = 'test'
 
     result['permissions'].append({})
@@ -59,7 +59,7 @@ def load_no_rights_test_data(arn) :
     result['groups'].append({})
     result['groups'][0]['name'] = 'standard'
     result['groups'][0]['data'] = {}
-    result['groups'][0]['data']['DisplayName'] = 'test'
+    result['groups'][0]['data']['DisplayName'] = 'test-test-test'
     result['groups'][0]['data']['Description'] = 'test'
 
     result['permissions'].append({})

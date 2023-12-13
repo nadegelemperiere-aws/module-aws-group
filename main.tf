@@ -15,7 +15,7 @@ data "aws_ssoadmin_instances" "topic_sso_instance" {}
 # -------------------------------------------------------
 resource "aws_identitystore_group" "group" {
 
-	display_name      = var.name
+	display_name      = "${var.project}-${var.environment}-${var.name}"
   	description       = var.description
   	identity_store_id = tolist(data.aws_ssoadmin_instances.topic_sso_instance.identity_store_ids)[0]
 
