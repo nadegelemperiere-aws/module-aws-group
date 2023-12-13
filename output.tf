@@ -9,7 +9,7 @@
 # -------------------------------------------------------
 
 output "name" {
-    value = aws_identitystore_group.group.name
+    value = aws_identitystore_group.group.display_name
 }
 
 output "id" {
