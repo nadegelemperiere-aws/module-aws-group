@@ -1,9 +1,9 @@
 .. image:: docs/imgs/logo.png
    :alt: Logo
 
-=======================================================
-AWS SSO group local IAM permission set terraform module
-=======================================================
+==============================
+AWS SSO group terraform module
+==============================
 
 About The Project
 =================
@@ -11,16 +11,16 @@ About The Project
 This project contains all the infrastructure as code (IaC) to deploy the permissions associated to a SSO group in a given organization
 
 
-.. image:: https://badgen.net/github/checks/nadegelemperiere-aws/module-aws-permission-set
-   :target: https://github.com/nadegelemperiere-aws/module-aws-permission-set/actions/workflows/release.yml
+.. image:: https://badgen.net/github/checks/nadegelemperiere-aws/module-aws-group
+   :target: https://github.com/nadegelemperiere-aws/module-aws-group/actions/workflows/release.yml
    :alt: Status
 .. image:: https://img.shields.io/static/v1?label=license&message=MIT&color=informational
    :target: ./LICENSE
    :alt: License
-.. image:: https://badgen.net/github/commits/nadegelemperiere-aws/module-aws-permission-set/main
+.. image:: https://badgen.net/github/commits/nadegelemperiere-aws/module-aws-group/main
    :target: https://github.com/nadegelemperiere-aws/robotframework
    :alt: Commits
-.. image:: https://badgen.net/github/last-commit/nadegelemperiere-aws/module-aws-permission-set/main
+.. image:: https://badgen.net/github/last-commit/nadegelemperiere-aws/module-aws-group/main
    :target: https://github.com/nadegelemperiere-aws/robotframework
    :alt: Last commit
 
@@ -51,18 +51,16 @@ To use this module in a wider terraform deployment, add the module to a terrafor
 
     module "group" {
 
-        source      = "git::https://github.com/nadegelemperiere-aws/module-aws-permission-set?ref=<this module version>"
-        project     = the project to which the permission set belongs to be used in naming and tags
-        module      = the project module to which the permission set belongs to be used in naming and tags
-        email       = the email of the person responsible for the permission set maintainance
-        environment = the type of environment to which the permission set contributes (prod, preprod, staging, sandbox, ...) to be used in naming and tags
-        git_version = the version of the deployment that uses the permission sets to be used as tag
-        account     = the identifier of the account in which the permission set shall be created
-        group       = {
-            name     = *group name to give to the permission set related resources
-            id       = group identifier in AWS SSO
-            console  = Console url to which the group user shall be redirected after login to the SSO portal
-        }
+        source      = "git::https://github.com/nadegelemperiere-aws/module-aws-group?ref=<this module version>"
+        project     = the project to which the group belongs to be used in naming and tags
+        module      = the project module to which the group belongs to be used in naming and tags
+        email       = the email of the person responsible for the group maintainance
+        environment = the type of environment to which the group contributes (prod, preprod, staging, sandbox, ...) to be used in naming and tags
+        git_version = the version of the deployment that uses the groups to be used as tag
+        account     = the identifier of the account in which the group shall be created
+        name        = group name
+        description = group description
+        console     = Console url to which the group user shall be redirected after login to the SSO portal
         rights      = [
             {
                 description = description to give to the statement
@@ -99,7 +97,7 @@ Detailed design
 .. image:: docs/imgs/module.png
    :alt: Module architecture
 
-Module creates a permission set in the local organization and attach it to the provided SSO group identifier, resulting in the creation of a dedicated role for group.
+Module creates a group in the local organization and attach it to the provided SSO group identifier, resulting in the creation of a dedicated role for group.
 
 It creates a custom policy to gives the required rights to the SSO group in the local organization.
 
@@ -142,12 +140,12 @@ Tests can be executed in an environment :
 Strategy
 --------
 
-The test strategy consists in terraforming test infrastructures based on the permission set module and check that the resulting AWS infrastructure matches what is expected.
+The test strategy consists in terraforming test infrastructures based on the group module and check that the resulting AWS infrastructure matches what is expected.
 The tests currently contains 2 tests :
 
-1 - A test to check the capability to create a permission set with some rights
+1 - A test to check the capability to create a group with some rights
 
-2 - A test to check that when no permissions are specified, the permission set can still be created
+2 - A test to check that when no permissions are specified, the group can still be created
 
 The tests cases :
 
@@ -164,16 +162,16 @@ Results
 
 The test results for latest release are here_
 
-.. _here: https://nadegelemperiere-aws.github.io/module-aws-permission-set/report.html
+.. _here: https://nadegelemperiere-aws.github.io/module-aws-group/report.html
 
 Issues
 ======
 
-.. image:: https://img.shields.io/github/issues/nadegelemperiere-aws/module-aws-permission-set.svg
-   :target: https://github.com/nadegelemperiere-aws/module-aws-permission-set/issues
+.. image:: https://img.shields.io/github/issues/nadegelemperiere-aws/module-aws-group.svg
+   :target: https://github.com/nadegelemperiere-aws/module-aws-group/issues
    :alt: Open issues
-.. image:: https://img.shields.io/github/issues-closed/nadegelemperiere-aws/module-aws-permission-set.svg
-   :target: https://github.com/nadegelemperiere-aws/module-aws-permission-set/issues
+.. image:: https://img.shields.io/github/issues-closed/nadegelemperiere-aws/module-aws-group.svg
+   :target: https://github.com/nadegelemperiere-aws/module-aws-group/issues
    :alt: Closed issues
 
 Roadmap
@@ -184,7 +182,7 @@ N.A.
 Contributing
 ============
 
-.. image:: https://contrib.rocks/image?repo=nadegelemperiere-aws/module-aws-permission-set
+.. image:: https://contrib.rocks/image?repo=nadegelemperiere-aws/module-aws-group
    :alt: GitHub Contributors Image
 
 We welcome contributions, do not hesitate to contact us if you want to contribute.
