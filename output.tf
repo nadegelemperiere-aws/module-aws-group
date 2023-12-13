@@ -9,7 +9,7 @@
 # -------------------------------------------------------
 
 output "name" {
-    value = aws_identitystore_group.group.display_name
+    value = aws_identitystore_group.group.name
 }
 
 output "id" {
@@ -20,6 +20,11 @@ output "permissions" {
     value = aws_ssoadmin_permission_set.permission_set.name
 }
 
+output "instance_arn" {
+    value = aws_ssoadmin_permission_set.permission_set.instance_arn
+}
+
 output "arn" {
     value = aws_ssoadmin_permission_set.permission_set.arn
 }
+
