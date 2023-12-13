@@ -5,7 +5,7 @@
 # Simple deployment for permissions testing
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @20 november 2021
-# Latest revision: 20 november 2021
+# Latest revision: 12 december 2023
 # -------------------------------------------------------
 
 # -------------------------------------------------------
@@ -19,11 +19,9 @@ module "group" {
 	module 		= "test"
 	git_version = "test"
     account     = var.account
-    group       = {
-        name        = "test"
-        id          = var.id
-        console     = "https://eu-west-1.console.aws.amazon.com/"
-    }
+    name        = "test"
+    description = "test"
+    console     = "https://eu-west-1.console.aws.amazon.com/"
     rights      = [
     ]
 }
@@ -64,13 +62,6 @@ variable "access_key" {
 variable "secret_key" {
 	type    	= string
 	sensitive 	= true
-}
-
-# -------------------------------------------------------
-# SSO group identifier
-# -------------------------------------------------------
-variable "id" {
-	type 		= string
 }
 
 # -------------------------------------------------------

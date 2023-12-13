@@ -6,24 +6,35 @@
 # an AWS SSO account
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @14 november 2021
-# Latest revision: 20 november 2023
+# Latest revision: 12 december 2023
 # -------------------------------------------------------
 
 data "aws_ssoadmin_instances" "topic_sso_instance" {}
+
+# -------------------------------------------------------
+# Create sso group
+# -------------------------------------------------------
+resource "aws_identitystore_group" "group" {
+
+	display_name      = var.name
+  	description       = var.description
+  	identity_store_id = tolist(data.aws_ssoadmin_instances.topic_sso_instance.identity_store_ids)[0]
+
+}
 
 # -------------------------------------------------------
 # Create permission
 # -------------------------------------------------------
 resource "aws_ssoadmin_permission_set" "permission_set" {
 
-	name                = "${var.project}-${var.environment}-${var.group.name}"
-	description         = "${var.group.name} access permission"
+	name                = "${var.project}-${var.environment}-${var.name}"
+	description         = "${var.name} access permission"
 	instance_arn        = tolist(data.aws_ssoadmin_instances.topic_sso_instance.arns)[0]
-	relay_state         = var.group.console
+	relay_state         = var.console
 	session_duration    = "PT2H"
 
 	tags = {
-		Name           	= "${var.project}.${var.environment}.${var.module}.permission.${var.group.name}"
+		Name           	= "${var.project}.${var.environment}.${var.module}.permission.${var.name}"
 		Environment     = var.environment
 		Owner   		= var.email
 		Project   		= var.project
@@ -42,7 +53,7 @@ resource "aws_ssoadmin_account_assignment" "permission_set_assignment" {
    	instance_arn        = aws_ssoadmin_permission_set.permission_set.instance_arn
     permission_set_arn  = aws_ssoadmin_permission_set.permission_set.arn
 
-    principal_id        = var.group.id
+    principal_id        = aws_identitystore_group.group.group_id
     principal_type      = "GROUP"
 
     target_id           = var.account

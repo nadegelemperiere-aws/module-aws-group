@@ -6,7 +6,7 @@
 # an AWS SSO account
 # -------------------------------------------------------
 # Nadège LEMPERIERE, @14 november 2021
-# Latest revision: 19 november 2023
+# Latest revision: 12 december 2023
 # -------------------------------------------------------
 
 # -------------------------------------------------------
@@ -57,12 +57,17 @@ variable "account" {
 # --------------------------------------------------------
 # SSO group description
 # --------------------------------------------------------
-variable "group" {
-	type = object({
-        name 	= string,
-		id 		= string,
-		console = string
-    })
+variable "name" {
+	type 	 = string
+	nullable = false
+}
+variable "description" {
+	type 	 = string
+	nullable = false
+}
+variable "console" {
+	type 	 = string
+	nullable = false
 }
 
 # --------------------------------------------------------
